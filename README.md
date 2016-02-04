@@ -1,3 +1,6 @@
+docker run -d --name guacd glyptodon/guacd
+docker run --name guacd-client --link glyptodon/guacd -d -P 8080:8080 edouardswiac/guacd-client-passthrough
+
 What is Guacamole?
 ==================
 

@@ -1,0 +1,10 @@
+guacd:
+  image: glyptodon/guacd
+  container_name: guacd
+guacd-client:
+  container_name: guacd-client
+  image: edouardswiac/guacd-client-passthrough
+  ports: 
+    - "8080:8080"
+  links:
+    - guacd

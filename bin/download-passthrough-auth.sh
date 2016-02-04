@@ -22,51 +22,33 @@
 #
 
 ##
-## @fn initdb.sh
+## @fn download-guacamole.sh
 ##
-## Generates a database initialization SQL script for a database of the given
-## type. The SQL will be sent to STDOUT.
+## Downloads Guacamole, saving the specified version to "guacamole.war" within
+## the given directory.
 ##
-## @param DATABASE
-##     The database to generate the SQL script for. This may be either
-##     "--postgres", for PostgreSQL, or "--mysql" for MySQL.
+## @param VERSION
+##     The version of guacamole.war to download, such as "0.9.6".
+##
+## @param DESTINATION
+##     The directory to save guacamole.war within.
 ##
 
-DATABASE="$1"
-
-##
-## Prints usage information for this shell script and exits with an error code.
-## Calling this function will immediately terminate execution of the script.
-##
-incorrect_usage() {
-    cat <<END
-USAGE: /opt/guacamole/bin/initdb.sh [--postgres | --mysql]
-END
-    exit 1
-}
-
-# Validate parameters
-if [ "$#" -ne 1 ]; then
-    echo "Wrong number of arguments."
-    incorrect_usage
-fi
+VERSION="$1"
+DESTINATION="$2"
 
 #
-# Produce script
+# Create destination, if it does not yet exist
 #
 
-case $DATABASE in
+mkdir -p "$DESTINATION"
 
-    --postgres)
-        cat /opt/guacamole/postgresql/schema/*.sql
-        ;;
 
-    --mysql)
-        cat /opt/guacamole/mysql/schema/*.sql
-        ;;
-
-    *)
-        echo "Bad database type: $DATABASE"
-        incorrect_usage
-esac
-
+echo "Downloading Guacamole Passthrough Auth version $VERSION to $DESTINATION ..."
+curl -L "https://github.com/edouardswiac/guacamole-auth-passthrough/releases/download/${VERSION}/guacamole-auth-passthrough-${VERSION}.tar.gz" | \
+tar -xz                  \
+    -C "$DESTINATION"    \
+    --wildcards          \
+    --no-anchored        \
+    --strip-components=1 \
+    "*.jar"              

@@ -1,3 +1,4 @@
+
 #!/bin/sh -e
 #
 # Copyright (C) 2015 Glyptodon LLC
@@ -49,4 +50,3 @@ mkdir -p "$DESTINATION"
 
 echo "Downloading Guacamole version $VERSION to $DESTINATION ..."
 curl -L "http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-${VERSION}.war" > "$DESTINATION/guacamole.war"
-
