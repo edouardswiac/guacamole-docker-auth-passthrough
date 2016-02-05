@@ -30,6 +30,7 @@ MAINTAINER Edouard Swiac <edouard.swiac@gmail.com>
 
 # Version info
 ENV GUAC_VERSION=0.9.9
+ENV GUAC_AUTH_VERSION=0.9.9b
 
 # Add configuration scripts
 COPY bin /opt/guacamole/bin/
@@ -37,7 +38,7 @@ COPY bin /opt/guacamole/bin/
 # Download and install latest guacamole-client and authentication
 RUN \
     /opt/guacamole/bin/download-guacamole.sh "$GUAC_VERSION" /usr/local/tomcat/webapps && \
-    /opt/guacamole/bin/download-passthrough-auth.sh "$GUAC_VERSION" /opt/guacamole
+    /opt/guacamole/bin/download-passthrough-auth.sh "$GUAC_AUTH_VERSION" /opt/guacamole
 
 # Start Guacamole under Tomcat, listening on 0.0.0.0:8080
 EXPOSE 8080
