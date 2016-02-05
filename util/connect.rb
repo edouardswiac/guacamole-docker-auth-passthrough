@@ -8,6 +8,11 @@ username = ARGV[1]
 password = ARGV[2]
 guac_host = ARGV[3] ||= "http://192.168.99.100:8080/guacamole" 
 
+unless remote_host
+	puts "usage: connect.rb RDP_HOST RDP_USER RDP_PASSWORD GUAC_HTTP_HOST"
+	exit
+end
+
 params = {
 	:protocol => "rdp", 
 	:username => username, 
